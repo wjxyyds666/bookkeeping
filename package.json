@@ -1,0 +1,16 @@
+{
+  "name": "account-book",
+  "version": "1.0.0",
+  "description": "零成本个人记账系统",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  },
+  "scripts": {
+    "dev": "wrangler pages dev public --port 3000",
+    "deploy": "wrangler pages deploy public"
+  }
+}

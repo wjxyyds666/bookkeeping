@@ -1,0 +1,14 @@
+# 项目名称
+name = "account-book"
+# 静态文件目录
+pages_build_output_dir = "public"
+
+# D1数据库绑定（部署后在CloudFlare后台配置，本地开发用）
+[[d1_databases]]
+binding = "DB"
+database_name = "account-book-db"
+database_id = "你的D1数据库ID"
+
+# 环境变量
+[vars]
+JWT_SECRET = "wjxyyds"

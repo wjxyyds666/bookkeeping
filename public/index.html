@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人记账系统</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- 头部导航 -->
+  <header class="header">
+    <div class="container header-content">
+      <div class="logo">个人记账系统</div>
+      <div class="header-right">
+        <span class="user-info" id="userName"></span>
+        <button class="btn btn-small btn-danger" onclick="logout()">退出登录</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 统计卡片 -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-title">本月收入</div>
+        <div class="stat-value income" id="totalIncome">¥0.00</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-title">本月支出</div>
+        <div class="stat-value expense" id="totalExpense">¥0.00</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-title">本月结余</div>
+        <div class="stat-value balance" id="balance">¥0.00</div>
+      </div>
+    </div>
+
+    <!-- 月份选择 -->
+    <div class="filter-section">
+      <div class="filter-item">
+        <label class="filter-label">统计月份</label>
+        <input type="month" id="monthSelect" class="filter-input" value="">
+      </div>
+    </div>
+
+    <!-- 图表区域 -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3 class="chart-title">支出分类占比</h3>
+        <canvas id="expenseChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3 class="chart-title">每日收支趋势</h3>
+        <canvas id="trendChart"></canvas>
+      </div>
+    </div>
+
+    <!-- 新增记录表单 -->
+    <section class="form-section">
+      <h3 style="margin-bottom: 16px;">新增记账记录</h3>
+      <form id="recordForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">类型</label>
+            <select id="recordType" class="form-input">
+              <option value="expense">支出</option>
+              <option value="income">收入</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">分类</label>
+            <select id="categorySelect" class="form-input" required></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">金额</label>
+            <input type="number" step="0.01" id="amount" class="form-input" placeholder="请输入金额" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">日期</label>
+            <input type="date" id="recordDate" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">备注</label>
+          <input type="text" id="description" class="form-input" placeholder="请输入备注（选填）">
+        </div>
+        <button type="submit" class="btn btn-primary">添加记录</button>
+      </form>
+    </section>
+
+    <!-- 筛选区域 -->
+    <section class="filter-section">
+      <div class="filter-item">
+        <label class="filter-label">日期范围</label>
+        <input type="date" id="startDate" class="filter-input">
+        <span>至</span>
+        <input type="date" id="endDate" class="filter-input">
+      </div>
+      <div class="filter-item">
+        <label class="filter-label">类型</label>
+        <select id="filterType" class="filter-select">
+          <option value="">全部</option>
+          <option value="income">收入</option>
+          <option value="expense">支出</option>
+        </select>
+      </div>
+      <div class="filter-item">
+        <label class="filter-label">分类</label>
+        <select id="filterCategory" class="filter-select">
+          <option value="">全部</option>
+        </select>
+      </div>
+      <button id="searchBtn" class="btn btn-small btn-primary">查询</button>
+      <button id="resetBtn" class="btn btn-small">重置</button>
+    </section>
+
+    <!-- 记录列表 -->
+    <div class="table-wrapper">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>日期</th>
+            <th>类型</th>
+            <th>分类</th>
+            <th>金额</th>
+            <th>备注</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="recordList"></tbody>
+      </table>
+    </div>
+
+    <!-- 分页 -->
+    <div class="pagination">
+      <button id="prevPage" class="btn btn-small">上一页</button>
+      <span class="pagination-info" id="pageInfo">第1页 / 共0页</span>
+      <button id="nextPage" class="btn btn-small">下一页</button>
+    </div>
+  </main>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>
